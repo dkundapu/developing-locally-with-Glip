@@ -10,8 +10,7 @@ const RC = require('ringcentral');
 //const CLIENT_ID = process.env.CLIENT_ID;
 //const CLIENT_SECRET = process.env.CLIENT_SECRET;
 //const RINGCENTRAL_ENV= process.env.RINGCENTRAL_ENV;
-
-const PORT=5000;
+const PORT=process.env.PORT || 5000;
 const REDIRECT_HOST= 'https://0186ba4c.ngrok.io';
 const CLIENT_ID = '2GW7QG_kQqmFeZYQx2IvRg';
 const CLIENT_SECRET = 'iV42oWAxTR6wNiq3-gCrFQMvL_jZUmREyBaI3VMW4YAQ';
