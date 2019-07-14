@@ -1,15 +1,22 @@
-require('dotenv').config();
+//require('dotenv').config();
 
 var express = require('express');
 var request = require('request');
 const RC = require('ringcentral');
 
 
-const PORT= process.env.PORT;
-const REDIRECT_HOST= process.env.REDIRECT_HOST;
-const CLIENT_ID = process.env.CLIENT_ID;
-const CLIENT_SECRET = process.env.CLIENT_SECRET;
-const RINGCENTRAL_ENV= process.env.RINGCENTRAL_ENV;
+//const PORT= process.env.PORT;
+//const REDIRECT_HOST= process.env.REDIRECT_HOST;
+//const CLIENT_ID = process.env.CLIENT_ID;
+//const CLIENT_SECRET = process.env.CLIENT_SECRET;
+//const RINGCENTRAL_ENV= process.env.RINGCENTRAL_ENV;
+
+const PORT=4390;
+const REDIRECT_HOST= 'https://0186ba4c.ngrok.io';
+const CLIENT_ID = '2GW7QG_kQqmFeZYQx2IvRg';
+const CLIENT_SECRET = 'iV42oWAxTR6wNiq3-gCrFQMvL_jZUmREyBaI3VMW4YAQ';
+const RINGCENTRAL_ENV='https://platform.devtest.ringcentral.com';
+
 
 
 var app = express();
@@ -38,9 +45,33 @@ rcsdk = new RC({
 platform = rcsdk.platform();
 
 //Authorization callback method.
+//code='U0pDMTFQMDFQQVMwMHxBQUFIV0l3RnYzZ2RFbjFfMmZvWnJBT0E5MVJSSHhIUlZaRmlFbzBsQmNPcnhadUpZZGZvUDA0R3ZMUDJLSkVCd2dWNF9QWWRPMEVYNENYQjd4dmJsWHJoRlZ2VjB0dWdmS0k4RWFEc3FFZ0lVUDhHU1o3S005NU9yMWZ3N25fMjE0S2xUU0NJUHR1SWhQNU8tVjlac28ta1FsVE9YTHBDM0pyR01BTEhnMXR2eGM1MFpVVUFQM2hxN3FWa1JOamxaRktJNlcxVW5sdktDS2ZnZGpPWVVFOWJ8d1MwZzB3fFhnX3pyUng5Q1g4amdaSnIwWllBbkF8QUE'
+app.post('/oauth', function (req, res) {
+	console.log("Query Code "+req.query.code);
+    if(req.query.code){
+        res.status(200);
+        res.send({"Error": "Looks like we're not getting code."});
+        console.log("Looks like we're not getting code.");
+    }else {
+        platform.login({
+            code : req.query.code,
+            redirectUri : REDIRECT_HOST + '/oauth'
+        }).then(function(authResponse){
+            var obj = authResponse.json();
+            bot_token = obj.access_token;
+            res.send(obj)
+            subscribeToGlipEvents();
+        }).catch(function(e){
+            console.error(e)
+            res.send("Error: " + e);
+        })
+    }
+});
+
 app.get('/oauth', function (req, res) {
-    if(!req.query.code){
-        res.status(500);
+	console.log("Query Code "+req.query.code);
+    if(req.query.code){
+        res.status(200);
         res.send({"Error": "Looks like we're not getting code."});
         console.log("Looks like we're not getting code.");
     }else {

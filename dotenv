@@ -1,0 +1,5 @@
+REDIRECT_HOST=https://0186ba4c.ngrok.io
+CLIENT_ID=2GW7QG_kQqmFeZYQx2IvRg
+CLIENT_SECRET=iV42oWAxTR6wNiq3-gCrFQMvL_jZUmREyBaI3VMW4YAQ
+RINGCENTRAL_ENV=https://platform.devtest.ringcentral.com
+PORT=4390
