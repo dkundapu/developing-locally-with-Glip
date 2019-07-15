@@ -47,7 +47,7 @@ platform = rcsdk.platform();
 code='U0pDMTFQMDFQQVMwMHxBQUFIV0l3RnYzZ2RFbjFfMmZvWnJBT0E5MVJSSHhIUlZaRmlFbzBsQmNPcnhadUpZZGZvUDA0R01SbXNyZmwzNkNwNF9QWWRPMEVYNENYQjd4dmJsWHJoTlpuQi04UU5XeDQ4RWFEc3FFZ0lVUDdROFFxd09WbjZOc1pMczRVZUhHV3pyaHpWcjJWeTRoUFJQOGZRdk9GV1E3dGtUVHd2cjZ2R01BTEhnMXR2eGEtdVJ2REFYR0JuN3FWa1JOamxaRkk3N2tJZDhjY1FtTVNtM3JaTTVHQWV8d1QwSjBBfDBqeHFSc0l0WU5wZmEyQ0tLcXNiaFF8QUE'
 app.post('/oauth', function (req, res) {
 	//console.log("Query Code/ Request "+util.inspect(req, {showHidden: false, depth: null}));
-    if(!req.query.code){
+    if(req.query.code){
         res.status(200);
         res.send({"Error": "Looks like we're not getting code."});
         console.log("Looks like we're not getting code.");
@@ -69,7 +69,7 @@ app.post('/oauth', function (req, res) {
 
 app.get('/oauth', function (req, res) {
 	//console.log("Query Code/ Request "+util.inspect(req.res.code, {showHidden: false, depth: null}));
-    if(!req.query.code){
+    if(req.query.code){
         res.status(200);
         res.send({"Error": "Looks like we're not getting code."});
         console.log("Looks like we're not getting code.");
